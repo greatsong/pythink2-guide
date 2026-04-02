@@ -575,7 +575,7 @@
       <strong style="font-size:14px; color:#92400e;">저장소 접근 권한이 필요합니다</strong>
       <p style="font-size:13px; color:#a16207; margin-top:2px;">pythink2는 비공개 저장소입니다. 코드에 접근하려면 관리자에게 GitHub 계정 초대를 요청하세요.</p>
     </div>
-    <a href="mailto:greatsong21@gmail.com?subject=pythink2%20%EC%A0%80%EC%9E%A5%EC%86%8C%20%EC%B4%88%EB%8C%80%20%EC%9A%94%EC%B2%AD&body=%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94%2C%20pythink2%20%EC%A0%80%EC%9E%A5%EC%86%8C%20%EC%B4%88%EB%8C%80%EB%A5%BC%20%EC%9A%94%EC%B2%AD%ED%95%A9%EB%8B%88%EB%8B%A4.%0A%0A%EC%9D%B4%EB%A6%84%3A%20%0A%ED%95%99%EA%B5%90%3A%20%0AGitHub%20%EC%95%84%EC%9D%B4%EB%94%94%3A%20" style="background:#92400e; color:white; text-decoration:none; padding:8px 16px; border-radius:8px; font-size:13px; font-weight:600; white-space:nowrap;">초대 요청 메일 보내기</a>
+    <button onclick="document.getElementById('invite-modal').style.display='flex'" style="background:#92400e; color:white; border:none; padding:8px 16px; border-radius:8px; font-size:13px; font-weight:600; white-space:nowrap; cursor:pointer; font-family:'Noto Sans KR',sans-serif;">초대 요청 메일 보내기</button>
   </div>
 </div>
 
@@ -1669,7 +1669,133 @@ cd server && npm install && cd ..
   <p style="margin-top:6px;">&copy; 2026 pythink2. 컴퓨팅 사고력을 키우는 적응형 코딩 학습 플랫폼</p>
 </div>
 
+<!-- ===== INVITE MODAL ===== -->
+<div id="invite-modal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.5); backdrop-filter:blur(4px); align-items:center; justify-content:center; padding:20px;">
+  <div style="background:white; border-radius:16px; max-width:520px; width:100%; max-height:90vh; overflow-y:auto; box-shadow:0 25px 50px rgba(0,0,0,0.25);">
+    <!-- 헤더 -->
+    <div style="padding:24px 24px 0;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3 style="font-size:18px; font-weight:700;">저장소 초대 요청</h3>
+        <button onclick="document.getElementById('invite-modal').style.display='none'" style="background:none; border:none; font-size:24px; cursor:pointer; color:var(--gray-400); line-height:1;">&times;</button>
+      </div>
+      <p style="font-size:13px; color:var(--gray-500); margin-top:6px;">아래 내용을 확인하신 후 메일을 보내주세요.</p>
+    </div>
+
+    <!-- 안내 문구 -->
+    <div style="padding:16px 24px 0;">
+      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:14px;">
+        <div style="font-size:13px; color:#1e40af; line-height:1.6;">
+          pythink2는 다층 보안(RLS, JWT, 암호화, Rate Limiting 등)이 적용되어 있으나, 소프트웨어 특성상 <strong>현재 확인되지 않은 보안 취약점이 존재할 가능성</strong>을 완전히 배제할 수 없습니다. 운영 중 보안 이슈를 발견하시면 <strong>즉시 개발자에게 알려주시기 바랍니다</strong> &mdash; 빠르게 패치하여 모든 운영 학교에 반영하겠습니다.
+        </div>
+      </div>
+    </div>
+
+    <!-- 동의 사항 -->
+    <div style="padding:16px 24px;">
+      <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:10px; padding:16px;">
+        <div style="font-size:14px; font-weight:600; color:#991b1b; margin-bottom:10px;">아래 내용을 확인해 주세요</div>
+        <label style="display:flex; gap:10px; align-items:flex-start; cursor:pointer; margin-bottom:12px;">
+          <input type="checkbox" id="chk-1" style="margin-top:3px; width:16px; height:16px; flex-shrink:0; accent-color:#dc2626;">
+          <span style="font-size:13px; color:var(--gray-700); line-height:1.5;">
+            운영 중 <strong>보안 취약점이나 개인정보 관련 이슈를 발견</strong>할 경우, 즉시 개발자(<a href="mailto:greatsong21@gmail.com" style="color:#dc2626;">greatsong21@gmail.com</a>)에게 알리겠습니다.
+          </span>
+        </label>
+        <label style="display:flex; gap:10px; align-items:flex-start; cursor:pointer; margin-bottom:12px;">
+          <input type="checkbox" id="chk-2" style="margin-top:3px; width:16px; height:16px; flex-shrink:0; accent-color:#dc2626;">
+          <span style="font-size:13px; color:var(--gray-700); line-height:1.5;">
+            환경 변수(API 키, DB 키 등)를 <strong>안전하게 보관</strong>하며, 타인에게 공유하지 않겠습니다.
+          </span>
+        </label>
+        <label style="display:flex; gap:10px; align-items:flex-start; cursor:pointer; margin-bottom:12px;">
+          <input type="checkbox" id="chk-3" style="margin-top:3px; width:16px; height:16px; flex-shrink:0; accent-color:#dc2626;">
+          <span style="font-size:13px; color:var(--gray-700); line-height:1.5;">
+            AI 코칭 시 학습 데이터가 Anthropic(해외)으로 전송되는 점을 <strong>학생 및 학부모에게 안내</strong>하겠습니다.
+          </span>
+        </label>
+        <label style="display:flex; gap:10px; align-items:flex-start; cursor:pointer; margin-bottom:12px;">
+          <input type="checkbox" id="chk-4" style="margin-top:3px; width:16px; height:16px; flex-shrink:0; accent-color:#dc2626;">
+          <span style="font-size:13px; color:var(--gray-700); line-height:1.5;">
+            학기 종료 후 불필요한 학생 데이터를 <strong>적시에 삭제</strong>하겠습니다.
+          </span>
+        </label>
+        <label style="display:flex; gap:10px; align-items:flex-start; cursor:pointer;">
+          <input type="checkbox" id="chk-5" style="margin-top:3px; width:16px; height:16px; flex-shrink:0; accent-color:#dc2626;">
+          <span style="font-size:13px; color:var(--gray-700); line-height:1.5;">
+            pythink2를 통해 수집되는 학생 개인정보의 <strong>보호 및 관리 주체는 이를 운영하는 각 학교</strong>이며, 개인정보보호법에 따른 적절한 조치를 취하겠습니다.
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <!-- 입력 필드 -->
+    <div style="padding:0 24px;">
+      <div style="display:grid; gap:10px;">
+        <div>
+          <label style="font-size:12px; font-weight:600; color:var(--gray-600);">이름 *</label>
+          <input type="text" id="inv-name" placeholder="홍길동" style="width:100%; padding:8px 12px; border:1px solid var(--gray-200); border-radius:8px; font-size:14px; margin-top:4px; font-family:'Noto Sans KR',sans-serif;">
+        </div>
+        <div>
+          <label style="font-size:12px; font-weight:600; color:var(--gray-600);">학교명 *</label>
+          <input type="text" id="inv-school" placeholder="OO중학교" style="width:100%; padding:8px 12px; border:1px solid var(--gray-200); border-radius:8px; font-size:14px; margin-top:4px; font-family:'Noto Sans KR',sans-serif;">
+        </div>
+        <div>
+          <label style="font-size:12px; font-weight:600; color:var(--gray-600);">GitHub 아이디 *</label>
+          <input type="text" id="inv-github" placeholder="my-github-id" style="width:100%; padding:8px 12px; border:1px solid var(--gray-200); border-radius:8px; font-size:14px; margin-top:4px; font-family:'Noto Sans KR',sans-serif;">
+        </div>
+      </div>
+    </div>
+
+    <!-- 버튼 -->
+    <div style="padding:20px 24px 24px; display:flex; gap:10px; justify-content:flex-end;">
+      <button onclick="document.getElementById('invite-modal').style.display='none'" style="padding:10px 20px; border:1px solid var(--gray-200); border-radius:8px; background:white; font-size:14px; cursor:pointer; font-family:'Noto Sans KR',sans-serif; color:var(--gray-500);">취소</button>
+      <button id="send-btn" onclick="sendInviteMail()" disabled style="padding:10px 24px; border:none; border-radius:8px; background:var(--gray-200); color:var(--gray-400); font-size:14px; font-weight:600; cursor:not-allowed; font-family:'Noto Sans KR',sans-serif; transition:all 0.15s;">메일 보내기</button>
+    </div>
+  </div>
+</div>
+
 <script>
+// ===== Invite modal logic =====
+const checks = [document.getElementById('chk-1'), document.getElementById('chk-2'), document.getElementById('chk-3'), document.getElementById('chk-4'), document.getElementById('chk-5')];
+const sendBtn = document.getElementById('send-btn');
+
+function updateSendBtn() {
+  const allChecked = checks.every(c => c.checked);
+  sendBtn.disabled = !allChecked;
+  sendBtn.style.background = allChecked ? '#92400e' : 'var(--gray-200)';
+  sendBtn.style.color = allChecked ? 'white' : 'var(--gray-400)';
+  sendBtn.style.cursor = allChecked ? 'pointer' : 'not-allowed';
+}
+checks.forEach(c => c.addEventListener('change', updateSendBtn));
+
+function sendInviteMail() {
+  const name = document.getElementById('inv-name').value.trim();
+  const school = document.getElementById('inv-school').value.trim();
+  const github = document.getElementById('inv-github').value.trim();
+  if (!name || !school || !github) { alert('이름, 학교명, GitHub 아이디를 모두 입력해 주세요.'); return; }
+
+  const body = `안녕하세요, pythink2 저장소 초대를 요청합니다.
+
+이름: ${name}
+학교: ${school}
+GitHub 아이디: ${github}
+
+아래 사항을 확인하였습니다:
+- 운영 중 보안 취약점이나 개인정보 이슈 발견 시 즉시 개발자에게 알리겠습니다.
+- 환경 변수(API 키 등)를 안전하게 보관하며 타인에게 공유하지 않겠습니다.
+- AI 코칭 시 학습 데이터의 해외 전송에 대해 학생/학부모에게 안내하겠습니다.
+- 학기 종료 후 불필요한 학생 데이터를 적시에 삭제하겠습니다.
+- 학생 개인정보의 보호 및 관리 주체는 운영 학교이며, 개인정보보호법에 따라 적절히 관리하겠습니다.`;
+
+  const subject = `[pythink2] 저장소 초대 요청 - ${name} (${school})`;
+  window.location.href = `mailto:greatsong21@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  document.getElementById('invite-modal').style.display = 'none';
+}
+
+// Close modal on backdrop click
+document.getElementById('invite-modal').addEventListener('click', function(e) {
+  if (e.target === this) this.style.display = 'none';
+});
+
 // ===== Method toggle =====
 function selectMethod(method) {
   document.getElementById('card-cloud').classList.toggle('selected', method === 'cloud');
