@@ -8,10 +8,10 @@
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap');
 
     :root {
-      --primary: #6366f1;
-      --primary-dark: #4f46e5;
-      --primary-light: #a5b4fc;
-      --primary-bg: #eef2ff;
+      --primary: #16a34a;
+      --primary-dark: #15803d;
+      --primary-light: #86efac;
+      --primary-bg: #f0fdf4;
       --success: #10b981;
       --success-bg: #ecfdf5;
       --warning: #f59e0b;
@@ -49,7 +49,7 @@
 
     /* ===== HERO ===== */
     .hero {
-      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #a855f7 100%);
+      background: linear-gradient(135deg, #15803d 0%, #16a34a 50%, #facc15 100%);
       color: white;
       padding: 60px 24px 48px;
       text-align: center;
@@ -486,7 +486,7 @@
       text-align: center;
     }
     .arch-vercel { background: #000; color: white; }
-    .arch-railway { background: #7c3aed; color: white; }
+    .arch-railway { background: #7828c8; color: white; }
     .arch-supabase { background: #3ecf8e; color: white; }
     .arch-claude { background: #d97706; color: white; }
     .arch-arrow {
@@ -515,7 +515,7 @@
     .progress-bar {
       height: 100%;
       border-radius: 100px;
-      background: linear-gradient(90deg, var(--primary), #a855f7);
+      background: linear-gradient(90deg, var(--primary), #facc15);
       transition: width 0.5s ease;
     }
     .progress-text {
@@ -562,6 +562,15 @@
 
 <!-- ===== HERO ===== -->
 <div class="hero">
+  <svg viewBox="0 0 120 120" width="64" height="64" fill="none" aria-hidden="true" style="margin-bottom:12px; position:relative; filter:drop-shadow(0 4px 12px rgba(0,0,0,0.2));">
+    <defs><linearGradient id="hero-lg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#facc15"/><stop offset="100%" stop-color="#22c55e"/></linearGradient></defs>
+    <rect x="4" y="4" width="112" height="112" rx="28" fill="url(#hero-lg)"/>
+    <path d="M60 20c-16.5 0-30 13.5-30 30 0 10.5 5.4 19.8 13.5 25.2V82c0 1.8 1.2 3 3 3h27c1.8 0 3-1.2 3-1.2V75.2C84.6 69.8 90 60.5 90 50c0-16.5-13.5-30-30-30z" stroke="white" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" fill="rgba(255,255,255,0.15)"/>
+    <path d="M47 44l10.5 9-10.5 9" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="63" y1="62" x2="73.5" y2="62" stroke="white" stroke-width="6" stroke-linecap="round"/>
+    <line x1="46" y1="92" x2="74" y2="92" stroke="white" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+    <line x1="50" y1="100" x2="70" y2="100" stroke="white" stroke-width="4" stroke-linecap="round" opacity="0.5"/>
+  </svg>
   <div class="hero-badge">pythink2 v0.1.0</div>
   <h1>배포 및 설치 가이드</h1>
   <p>다른 학교 선생님들이 pythink2를 직접 배포하여<br>수업에서 바로 사용할 수 있도록 안내합니다</p>
