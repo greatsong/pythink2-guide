@@ -1706,20 +1706,8 @@ cd server && npm install && cd ..
             환경 변수(API 키, DB 키 등)를 <strong>안전하게 보관</strong>하며, 타인에게 공유하지 않겠습니다.
           </span>
         </label>
-        <label style="display:flex; gap:10px; align-items:flex-start; cursor:pointer; margin-bottom:12px;">
-          <input type="checkbox" id="chk-3" style="margin-top:3px; width:16px; height:16px; flex-shrink:0; accent-color:#dc2626;">
-          <span style="font-size:13px; color:var(--gray-700); line-height:1.5;">
-            AI 코칭 시 학습 데이터가 Anthropic(해외)으로 전송되는 점을 <strong>학생 및 학부모에게 안내</strong>하겠습니다.
-          </span>
-        </label>
-        <label style="display:flex; gap:10px; align-items:flex-start; cursor:pointer; margin-bottom:12px;">
-          <input type="checkbox" id="chk-4" style="margin-top:3px; width:16px; height:16px; flex-shrink:0; accent-color:#dc2626;">
-          <span style="font-size:13px; color:var(--gray-700); line-height:1.5;">
-            학기 종료 후 불필요한 학생 데이터를 <strong>적시에 삭제</strong>하겠습니다.
-          </span>
-        </label>
         <label style="display:flex; gap:10px; align-items:flex-start; cursor:pointer;">
-          <input type="checkbox" id="chk-5" style="margin-top:3px; width:16px; height:16px; flex-shrink:0; accent-color:#dc2626;">
+          <input type="checkbox" id="chk-3" style="margin-top:3px; width:16px; height:16px; flex-shrink:0; accent-color:#dc2626;">
           <span style="font-size:13px; color:var(--gray-700); line-height:1.5;">
             pythink2를 통해 수집되는 학생 개인정보의 <strong>보호 및 관리 주체는 이를 운영하는 각 학교</strong>이며, 개인정보보호법에 따른 적절한 조치를 취하겠습니다.
           </span>
@@ -1755,7 +1743,7 @@ cd server && npm install && cd ..
 
 <script>
 // ===== Invite modal logic =====
-const checks = [document.getElementById('chk-1'), document.getElementById('chk-2'), document.getElementById('chk-3'), document.getElementById('chk-4'), document.getElementById('chk-5')];
+const checks = [document.getElementById('chk-1'), document.getElementById('chk-2'), document.getElementById('chk-3')];
 const sendBtn = document.getElementById('send-btn');
 
 function updateSendBtn() {
@@ -1782,8 +1770,6 @@ GitHub 아이디: ${github}
 아래 사항을 확인하였습니다:
 - 운영 중 보안 취약점이나 개인정보 이슈 발견 시 즉시 개발자에게 알리겠습니다.
 - 환경 변수(API 키 등)를 안전하게 보관하며 타인에게 공유하지 않겠습니다.
-- AI 코칭 시 학습 데이터의 해외 전송에 대해 학생/학부모에게 안내하겠습니다.
-- 학기 종료 후 불필요한 학생 데이터를 적시에 삭제하겠습니다.
 - 학생 개인정보의 보호 및 관리 주체는 운영 학교이며, 개인정보보호법에 따라 적절히 관리하겠습니다.`;
 
   const subject = `[pythink2] 저장소 초대 요청 - ${name} (${school})`;
