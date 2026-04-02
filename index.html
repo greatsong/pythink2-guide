@@ -575,7 +575,7 @@
       <strong style="font-size:14px; color:#92400e;">저장소 접근 권한이 필요합니다</strong>
       <p style="font-size:13px; color:#a16207; margin-top:2px;">pythink2는 비공개 저장소입니다. 코드에 접근하려면 관리자에게 GitHub 계정 초대를 요청하세요.</p>
     </div>
-    <a href="mailto:greatsong@gmail.com?subject=pythink2%20%EC%A0%80%EC%9E%A5%EC%86%8C%20%EC%B4%88%EB%8C%80%20%EC%9A%94%EC%B2%AD&body=%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94%2C%20pythink2%20%EC%A0%80%EC%9E%A5%EC%86%8C%20%EC%B4%88%EB%8C%80%EB%A5%BC%20%EC%9A%94%EC%B2%AD%ED%95%A9%EB%8B%88%EB%8B%A4.%0A%0A%EC%9D%B4%EB%A6%84%3A%20%0A%ED%95%99%EA%B5%90%3A%20%0AGitHub%20%EC%95%84%EC%9D%B4%EB%94%94%3A%20" style="background:#92400e; color:white; text-decoration:none; padding:8px 16px; border-radius:8px; font-size:13px; font-weight:600; white-space:nowrap;">초대 요청 메일 보내기</a>
+    <a href="mailto:greatsong21@gmail.com?subject=pythink2%20%EC%A0%80%EC%9E%A5%EC%86%8C%20%EC%B4%88%EB%8C%80%20%EC%9A%94%EC%B2%AD&body=%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94%2C%20pythink2%20%EC%A0%80%EC%9E%A5%EC%86%8C%20%EC%B4%88%EB%8C%80%EB%A5%BC%20%EC%9A%94%EC%B2%AD%ED%95%A9%EB%8B%88%EB%8B%A4.%0A%0A%EC%9D%B4%EB%A6%84%3A%20%0A%ED%95%99%EA%B5%90%3A%20%0AGitHub%20%EC%95%84%EC%9D%B4%EB%94%94%3A%20" style="background:#92400e; color:white; text-decoration:none; padding:8px 16px; border-radius:8px; font-size:13px; font-weight:600; white-space:nowrap;">초대 요청 메일 보내기</a>
   </div>
 </div>
 
@@ -599,9 +599,10 @@
       <a href="#교실"><span class="toc-num">5</span>교실 운영</a>
       <a href="#데모"><span class="toc-num">6</span>데모 모드</a>
       <a href="#환경변수"><span class="toc-num">7</span>환경 변수</a>
-      <a href="#faq"><span class="toc-num">8</span>FAQ</a>
-      <a href="#업데이트"><span class="toc-num">9</span>업데이트</a>
-      <a href="#체크리스트"><span class="toc-num">10</span>체크리스트</a>
+      <a href="#보안"><span class="toc-num">8</span>보안/개인정보</a>
+      <a href="#faq"><span class="toc-num">9</span>FAQ</a>
+      <a href="#업데이트"><span class="toc-num">10</span>업데이트</a>
+      <a href="#체크리스트"><span class="toc-num">11</span>체크리스트</a>
     </nav>
   </div>
 </div>
@@ -1236,10 +1237,278 @@ node scripts/seed-demo.js --reset</code></pre>
   </div>
 </div>
 
-<!-- ===== 8. FAQ ===== -->
-<div class="section" id="faq">
+<!-- ===== 8. 보안/개인정보 ===== -->
+<div class="section" id="보안">
   <div class="section-header">
     <div class="section-num">8</div>
+    <h2>보안 및 학생 개인정보 보호</h2>
+  </div>
+
+  <div class="callout callout-danger" style="margin-bottom:20px;">
+    <span class="callout-icon">&#x1F6E1;&#xFE0F;</span>
+    <div>
+      <strong>교육 현장에서 학생 데이터를 다루는 시스템입니다.</strong><br>
+      아래 내용을 반드시 숙지하고 운영해 주세요. pythink2에는 이미 다층 보안이 적용되어 있지만, <strong>운영자(선생님)의 관리</strong>가 가장 중요합니다.
+    </div>
+  </div>
+
+  <!-- 이미 적용된 보안 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-circle" style="background:#ecfdf5; color:#10b981;">&#x2713;</div>
+      <div>
+        <h3>이미 적용된 보안 조치</h3>
+        <p>pythink2에 내장된 보호 장치들입니다</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>영역</th><th>보호 조치</th><th>상세</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>데이터 격리</strong></td>
+            <td>RLS (Row Level Security)</td>
+            <td>전체 18개 테이블에 행 수준 보안 적용. 학생은 자기 데이터만, 교사는 자기 교실만 접근 가능</td>
+          </tr>
+          <tr>
+            <td><strong>인증</strong></td>
+            <td>JWT + Supabase Auth</td>
+            <td>모든 API 요청에 토큰 검증. 30분 비활동 시 자동 로그아웃</td>
+          </tr>
+          <tr>
+            <td><strong>권한 분리</strong></td>
+            <td>역할 기반 접근 제어</td>
+            <td>학생/교사/관리자 3단계. 역할 변경 불가(DB 레벨 잠금)</td>
+          </tr>
+          <tr>
+            <td><strong>통신 암호화</strong></td>
+            <td>HTTPS 전용</td>
+            <td>Vercel/Railway 모두 HTTPS 강제. 보안 헤더(Helmet.js) 적용</td>
+          </tr>
+          <tr>
+            <td><strong>API 보호</strong></td>
+            <td>Rate Limiting + 큐</td>
+            <td>학생당 분당 20회, 동시 AI 처리 3건 제한. DDoS 방어</td>
+          </tr>
+          <tr>
+            <td><strong>API 키 암호화</strong></td>
+            <td>AES-256-GCM</td>
+            <td>교실별 API 키를 DB에 암호화 저장. 평문 노출 없음</td>
+          </tr>
+          <tr>
+            <td><strong>AI 안전</strong></td>
+            <td>출력 필터링</td>
+            <td>AI 코치 응답에서 실행 가능 코드(정답) 자동 차단</td>
+          </tr>
+          <tr>
+            <td><strong>CORS</strong></td>
+            <td>화이트리스트</td>
+            <td>허용된 도메인에서만 API 접근 가능</td>
+          </tr>
+          <tr>
+            <td><strong>개인정보처리방침</strong></td>
+            <td>10개 조항</td>
+            <td>앱 내 개인정보처리방침 페이지 탑재 (개인정보보호법 준수)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 수집 데이터 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-circle">&#x1F4CB;</div>
+      <div>
+        <h3>수집하는 학생 데이터 (최소 수집 원칙)</h3>
+        <p>pythink2가 저장하는 정보와 저장하지 않는 정보</p>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+      <div style="background:#fef2f2; border-radius:var(--radius-sm); padding:14px;">
+        <strong style="color:#dc2626; font-size:13px;">수집하는 정보</strong>
+        <ul class="bullet" style="margin-top:8px; font-size:13px;">
+          <li>이메일 (로그인용)</li>
+          <li>표시 이름 (닉네임 가능)</li>
+          <li>제출한 코드 + 테스트 결과</li>
+          <li>AI 코치 대화 내용</li>
+          <li>학습 패턴 (시도 횟수, 소요 시간)</li>
+          <li>감정 상태 (선택, 이모지)</li>
+        </ul>
+      </div>
+      <div style="background:#ecfdf5; border-radius:var(--radius-sm); padding:14px;">
+        <strong style="color:#059669; font-size:13px;">수집하지 않는 정보</strong>
+        <ul class="bullet" style="margin-top:8px; font-size:13px;">
+          <li>실명 (닉네임 사용 가능)</li>
+          <li>주민등록번호 / 학번</li>
+          <li>전화번호 / 주소</li>
+          <li>위치 정보</li>
+          <li>기기 정보 / 브라우저 핑거프린트</li>
+          <li>다른 앱 사용 기록</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout callout-tip" style="margin-top:12px;">
+      <span class="callout-icon">&#x1F4A1;</span>
+      <div>학습 기록은 학년 종료 후 <strong>최대 1년</strong> 보유 후 파기됩니다. 교사가 교실을 삭제하면 해당 교실의 모든 데이터가 즉시 삭제(CASCADE)됩니다.</div>
+    </div>
+  </div>
+
+  <!-- 데이터 완전 분리 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-circle">&#x1F512;</div>
+      <div>
+        <h3>학교 간 데이터 완전 분리</h3>
+        <p>다른 학교 선생님과 데이터가 섞이지 않습니다</p>
+      </div>
+    </div>
+    <div class="arch-diagram" style="padding:20px;">
+      <div style="display:flex; justify-content:center; gap:24px; flex-wrap:wrap;">
+        <div style="border:2px solid var(--primary); border-radius:var(--radius); padding:16px; min-width:180px;">
+          <div style="font-size:13px; color:var(--primary); font-weight:700;">A 학교 선생님</div>
+          <div style="margin-top:8px;">
+            <div class="arch-box arch-supabase" style="font-size:12px; padding:8px 12px; min-width:auto;">자체 Supabase</div>
+            <div style="font-size:11px; color:var(--gray-400); margin-top:4px;">A 학교 학생 데이터만</div>
+          </div>
+        </div>
+        <div style="border:2px solid var(--warning); border-radius:var(--radius); padding:16px; min-width:180px;">
+          <div style="font-size:13px; color:var(--warning); font-weight:700;">B 학교 선생님</div>
+          <div style="margin-top:8px;">
+            <div class="arch-box arch-supabase" style="font-size:12px; padding:8px 12px; min-width:auto;">자체 Supabase</div>
+            <div style="font-size:11px; color:var(--gray-400); margin-top:4px;">B 학교 학생 데이터만</div>
+          </div>
+        </div>
+        <div style="border:2px solid var(--danger); border-radius:var(--radius); padding:16px; min-width:180px;">
+          <div style="font-size:13px; color:var(--danger); font-weight:700;">C 학교 선생님</div>
+          <div style="margin-top:8px;">
+            <div class="arch-box arch-supabase" style="font-size:12px; padding:8px 12px; min-width:auto;">자체 Supabase</div>
+            <div style="font-size:11px; color:var(--gray-400); margin-top:4px;">C 학교 학생 데이터만</div>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top:16px; font-size:13px; color:var(--gray-500);">
+        각 선생님이 <strong>별도 Supabase 프로젝트</strong>를 생성하므로, 데이터베이스 자체가 물리적으로 분리됩니다.<br>
+        다른 학교의 데이터에 접근하는 것은 <strong>기술적으로 불가능</strong>합니다.
+      </p>
+    </div>
+  </div>
+
+  <!-- 선생님이 꼭 해야 할 것 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-circle" style="background:var(--danger-bg); color:var(--danger);">!</div>
+      <div>
+        <h3>선생님이 반드시 지켜야 할 보안 수칙</h3>
+        <p>시스템 보안이 아무리 좋아도 이것들을 지키지 않으면 무용지물입니다</p>
+      </div>
+    </div>
+
+    <div style="display:grid; gap:10px;">
+      <div style="background:var(--danger-bg); border-left:3px solid var(--danger); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:12px 16px;">
+        <strong style="font-size:14px;">1. 환경 변수(키)를 절대 공유하지 마세요</strong>
+        <p style="font-size:13px; color:var(--gray-600); margin-top:4px;">
+          <code>SUPABASE_SERVICE_ROLE_KEY</code>, <code>ANTHROPIC_API_KEY</code> 등은 카카오톡, 이메일, 문서에 절대 적지 마세요.<br>
+          특히 <code>service_role</code> 키가 유출되면 DB의 <strong>모든 학생 데이터</strong>에 접근 가능합니다.
+        </p>
+      </div>
+      <div style="background:var(--danger-bg); border-left:3px solid var(--danger); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:12px 16px;">
+        <strong style="font-size:14px;">2. CSV 내보내기 파일을 안전하게 관리하세요</strong>
+        <p style="font-size:13px; color:var(--gray-600); margin-top:4px;">
+          교사 대시보드에서 내보낸 CSV에는 학생 이메일과 학습 기록이 포함됩니다.<br>
+          USB, 클라우드, 공유 폴더에 방치하지 마세요. 사용 후 삭제를 권장합니다.
+        </p>
+      </div>
+      <div style="background:var(--warning-bg); border-left:3px solid var(--warning); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:12px 16px;">
+        <strong style="font-size:14px;">3. AI 코칭 데이터 전송에 대해 안내하세요</strong>
+        <p style="font-size:13px; color:var(--gray-600); margin-top:4px;">
+          학생이 AI 코치를 사용하면 <strong>학습 데이터(코드, 질문)</strong>가 Anthropic(미국)으로 전송됩니다.<br>
+          개인 식별 정보(이름, 이메일)는 전송되지 않지만, 학기 초에 학생/학부모에게 안내하는 것을 권장합니다.
+        </p>
+      </div>
+      <div style="background:var(--warning-bg); border-left:3px solid var(--warning); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:12px 16px;">
+        <strong style="font-size:14px;">4. 학생 이메일은 닉네임 이메일을 권장합니다</strong>
+        <p style="font-size:13px; color:var(--gray-600); margin-top:4px;">
+          실명 이메일 대신 <code>3반7번@학교메일</code> 같은 닉네임 이메일을 사용하면 개인 식별 위험이 크게 줄어듭니다.<br>
+          또는 학교 구글 워크스페이스 계정을 활용하세요.
+        </p>
+      </div>
+      <div style="background:var(--info-bg); border-left:3px solid var(--info); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:12px 16px;">
+        <strong style="font-size:14px;">5. 학기 종료 후 교실을 삭제하세요</strong>
+        <p style="font-size:13px; color:var(--gray-600); margin-top:4px;">
+          교실 삭제 시 해당 교실의 모든 학생 데이터(제출, 프로필, 학습 기록)가 <strong>자동으로 완전 삭제</strong>됩니다.<br>
+          필요한 통계는 CSV로 먼저 내보낸 후 교실을 삭제하세요.
+        </p>
+      </div>
+      <div style="background:var(--info-bg); border-left:3px solid var(--info); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:12px 16px;">
+        <strong style="font-size:14px;">6. Anthropic API 사용량 한도를 설정하세요</strong>
+        <p style="font-size:13px; color:var(--gray-600); margin-top:4px;">
+          <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a>에서 월 사용 한도를 설정하면 예상치 못한 비용 발생을 방지할 수 있습니다.<br>
+          교실 설정의 <code>daily_ai_coach_limit</code>으로 학생당 일일 사용을 제한할 수도 있습니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 개인정보보호법 안내 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-circle">&#x2696;&#xFE0F;</div>
+      <div>
+        <h3>개인정보보호법 관련 안내</h3>
+        <p>교육 현장에서의 개인정보 처리 근거</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>항목</th><th>pythink2 현황</th></tr></thead>
+        <tbody>
+          <tr><td>개인정보처리방침</td><td>앱 내 탑재 (10개 조항, <code>/privacy</code> 경로)</td></tr>
+          <tr><td>수집 항목 고지</td><td>이메일, 표시이름, 학습활동 기록 명시</td></tr>
+          <tr><td>처리 목적</td><td>학습 서비스 제공, AI 코칭, 교사 대시보드, 서비스 개선</td></tr>
+          <tr><td>보유 기간</td><td>회원 정보: 탈퇴 시 즉시 / 학습 기록: 학년 종료 후 1년</td></tr>
+          <tr><td>위탁 처리</td><td>Supabase(DB), Google(인증), Vercel(호스팅), Railway(API), Anthropic(AI) 명시</td></tr>
+          <tr><td>이용자 권리</td><td>열람, 정정, 삭제, 처리 정지 청구 가능</td></tr>
+          <tr><td>14세 미만</td><td>교육기관 범위 내 처리 (보호자 동의 절차 안내)</td></tr>
+          <tr><td>제3자 제공</td><td>AI 코칭 시 학습 데이터만 전송 (개인 식별 정보 제외)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-warn" style="margin-top:12px;">
+      <span class="callout-icon">&#x26A0;&#xFE0F;</span>
+      <div>
+        <strong>학교 운영 시 권장 사항:</strong>
+        <ul class="bullet" style="margin-top:6px; font-size:13px;">
+          <li>학기 초 학생/학부모에게 AI 학습 도구 사용 사실 안내 (가정통신문 등)</li>
+          <li>학교의 개인정보보호 담당자에게 시스템 운영 사실 공유</li>
+          <li>수집 근거: <strong>교육기관의 교육 목적 개인정보 처리</strong> (개인정보보호법 제15조 제1항 제3호)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 비상 시 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-circle" style="background:var(--danger-bg); color:var(--danger);">&#x1F6A8;</div>
+      <div>
+        <h3>키가 유출된 것 같다면?</h3>
+        <p>즉시 조치 순서</p>
+      </div>
+    </div>
+    <ol class="steps-list">
+      <li data-n="1"><strong>Anthropic API 키 유출</strong>: <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a>에서 즉시 키 삭제 &rarr; 새 키 발급 &rarr; Railway 환경 변수 교체</li>
+      <li data-n="2"><strong>Supabase service_role 키 유출</strong>: Supabase 대시보드 &gt; Settings &gt; API에서 키 재생성 &rarr; Railway + 시딩 스크립트의 키 모두 교체</li>
+      <li data-n="3"><strong>ADMIN_API_KEY 유출</strong>: Railway 환경 변수에서 새 키로 교체 (즉시 적용)</li>
+      <li data-n="4">의심스러운 활동이 있었다면 Supabase &gt; Authentication &gt; Users에서 비정상 계정 확인</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ===== 9. FAQ ===== -->
+<div class="section" id="faq">
+  <div class="section-header">
+    <div class="section-num">9</div>
     <h2>자주 묻는 질문 (FAQ)</h2>
   </div>
 
@@ -1334,7 +1603,7 @@ node scripts/seed-demo.js --reset</code></pre>
 <!-- ===== 9. 업데이트 ===== -->
 <div class="section" id="업데이트">
   <div class="section-header">
-    <div class="section-num">9</div>
+    <div class="section-num">10</div>
     <h2>업데이트 방법</h2>
   </div>
 
@@ -1365,7 +1634,7 @@ cd server && npm install && cd ..
 <!-- ===== 10. 체크리스트 ===== -->
 <div class="section" id="체크리스트">
   <div class="section-header">
-    <div class="section-num">10</div>
+    <div class="section-num">11</div>
     <h2>배포 완료 체크리스트</h2>
   </div>
 
