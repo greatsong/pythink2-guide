@@ -1484,17 +1484,6 @@ node scripts/seed-demo.js --reset</code></pre>
         </tbody>
       </table>
     </div>
-    <div class="callout callout-warn" style="margin-top:12px;">
-      <span class="callout-icon">&#x26A0;&#xFE0F;</span>
-      <div>
-        <strong>학교 운영 시 권장 사항:</strong>
-        <ul class="bullet" style="margin-top:6px; font-size:13px;">
-          <li>학기 초 학생/학부모에게 AI 학습 도구 사용 사실 안내 (가정통신문 등)</li>
-          <li>학교의 개인정보보호 담당자에게 시스템 운영 사실 공유</li>
-          <li>수집 근거: <strong>교육기관의 교육 목적 개인정보 처리</strong> (개인정보보호법 제15조 제1항 제3호)</li>
-        </ul>
-      </div>
-    </div>
   </div>
 
   <!-- 비상 시 -->
@@ -1589,8 +1578,9 @@ node scripts/seed-demo.js --reset</code></pre>
   <div class="faq-item">
     <div class="faq-q" onclick="toggleFaq(this)">Anthropic API 비용이 걱정돼요</div>
     <div class="faq-a"><div class="faq-a-inner">
-      학생 30명 기준 월 $5~15 예상입니다.
+      <strong>Anthropic API는 필수가 아닙니다.</strong> API 키 없이도 문제 풀이, 교사 대시보드, 추천, 로드맵 등 모든 기본 기능이 정상 작동합니다. AI 코칭(힌트/피드백 채팅)만 비활성화됩니다.
       <ul class="bullet" style="margin-top:8px;">
+        <li>AI 코칭을 사용할 경우 학생 30명 기준 월 $5~15 예상</li>
         <li><a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a>에서 사용량 한도 설정 가능</li>
         <li>교실 설정의 <code>daily_ai_coach_limit</code>으로 학생당 일일 사용 제한</li>
       </ul>
