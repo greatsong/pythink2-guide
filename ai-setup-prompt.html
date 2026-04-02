@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pythink2 AI 셋업 프롬프트 — 복사해서 AI에게 붙여넣기</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+    :root {
+      --primary: #6366f1;
+      --primary-bg: #eef2ff;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-500: #6b7280;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      --success: #10b981;
+      --radius: 12px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: var(--gray-50);
+      color: var(--gray-800);
+      line-height: 1.7;
+      padding: 0;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+      color: white;
+      padding: 48px 24px;
+      text-align: center;
+    }
+    .hero h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+    .hero p { font-size: 15px; opacity: 0.8; max-width: 500px; margin: 0 auto; }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 32px 20px; }
+
+    .intro {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+    .intro h2 { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+    .intro p { font-size: 14px; color: var(--gray-500); margin-bottom: 8px; }
+    .intro ol { padding-left: 20px; font-size: 14px; color: var(--gray-700); }
+    .intro li { margin-bottom: 6px; }
+
+    .prompt-section {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .prompt-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--gray-200);
+      background: var(--gray-50);
+    }
+    .prompt-header h3 { font-size: 16px; font-weight: 600; }
+    .prompt-header .badge {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-weight: 600;
+    }
+    .badge-cloud { background: var(--primary-bg); color: var(--primary); }
+    .badge-local { background: #ecfdf5; color: var(--success); }
+    .badge-common { background: #fef3c7; color: #92400e; }
+
+    .copy-area {
+      position: relative;
+      padding: 0;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 10;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Noto Sans KR', sans-serif;
+      transition: all 0.15s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .copy-btn:hover { background: #4f46e5; transform: translateY(-1px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+    .copy-btn.copied { background: var(--success); }
+
+    .prompt-text {
+      padding: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: break-all;
+      color: var(--gray-700);
+      background: #fafafa;
+      max-height: 500px;
+      overflow-y: auto;
+      border: none;
+      resize: none;
+      width: 100%;
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 32px;
+    }
+    .back-link a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .back-link a:hover { text-decoration: underline; }
+
+    .footer {
+      text-align: center;
+      padding: 32px 20px;
+      color: var(--gray-500);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>AI 셋업 프롬프트</h1>
+  <p>아래 텍스트를 복사하여 Claude, ChatGPT 등 AI에게 붙여넣으면<br>단계별로 안내를 받을 수 있습니다</p>
+</div>
+
+<div class="container">
+
+  <div class="intro">
+    <h2>사용법</h2>
+    <p>각 상황에 맞는 프롬프트를 복사해서 AI 채팅에 붙여넣으세요.</p>
+    <ol>
+      <li><strong>클라우드 배포</strong> — 학교 서버 없이 Vercel+Railway+Supabase로 배포할 때</li>
+      <li><strong>로컬 서버</strong> — 학교 컴퓨터실에서 직접 실행할 때</li>
+      <li><strong>문제 시딩 & 교실 설정</strong> — 배포 후 초기 데이터 넣기 + 교실 만들기</li>
+      <li><strong>문제 해결</strong> — 에러가 발생했을 때</li>
+    </ol>
+  </div>
+
+  <!-- ===== 1. CLOUD ===== -->
+  <div class="prompt-section">
+    <div class="prompt-header">
+      <h3>1. 클라우드 배포 (Vercel + Railway + Supabase)</h3>
+      <span class="badge badge-cloud">클라우드</span>
+    </div>
+    <div class="copy-area">
+      <button class="copy-btn" onclick="copyPrompt(this)">복사</button>
+      <textarea class="prompt-text" readonly rows="30">pythink2라는 교육용 웹 앱을 클라우드에 배포하려고 합니다. 단계별로 안내해 주세요.
+
+## 프로젝트 정보
+- GitHub 저장소: https://github.com/greatsong/pythink2
+- 프론트엔드: React 19 + Vite (client/ 디렉토리)
+- AI 서버: Express.js (server/ 디렉토리)
+- 데이터베이스: Supabase (PostgreSQL)
+- AI: Anthropic Claude API
+
+## 배포 구성
+- 프론트엔드 → Vercel (포트 4003)
+- AI 서버 → Railway (포트 4004)
+- DB/인증 → Supabase
+
+## 필요한 환경 변수
+
+### Vercel (클라이언트)
+- VITE_SUPABASE_URL: Supabase 프로젝트 URL
+- VITE_SUPABASE_ANON_KEY: Supabase anon 키
+- VITE_API_URL: Railway 배포 URL
+- VITE_DEMO_PASSWORD: demo-pythink2-2026
+- VITE_DEMO_ACCESS_CODE: 1234
+
+### Railway (서버)
+- PORT: 4004
+- CLIENT_URL: Vercel 배포 URL (CORS용)
+- SUPABASE_URL: Supabase 프로젝트 URL
+- SUPABASE_ANON_KEY: Supabase anon 키
+- SUPABASE_SERVICE_ROLE_KEY: Supabase service role 키
+- ANTHROPIC_API_KEY: sk-ant-... 키
+- ADMIN_API_KEY: 16자 이상 관리자 키
+- API_KEY_ENCRYPTION_SECRET: 64자리 hex (node -e "console.log(require('crypto').randomBytes(32).toString('hex'))")
+- DEMO_PASSWORD: demo-pythink2-2026
+
+## Vercel 빌드 설정
+- Framework: Vite
+- Build Command: cd client && npm install && npm run build
+- Output Directory: client/dist
+
+## Railway 설정
+- Start Command: node server/index.js
+- Health Check: /api/health
+- Nixpacks: nodejs_20
+
+## vercel.json 수정 필요
+배포 후 vercel.json의 rewrites에서 Railway URL을 내 것으로 변경:
+{
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "https://내-Railway-URL/api/$1" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
+
+## 순서
+1. Supabase 프로젝트 생성 → 키 메모
+2. Anthropic API 키 발급
+3. GitHub 저장소 Fork
+4. Railway 배포 + 환경 변수 설정
+5. Vercel 배포 + 환경 변수 설정
+6. vercel.json에서 Railway URL 수정
+7. Railway CLIENT_URL에 Vercel URL 설정
+8. Supabase Authentication > Site URL에 Vercel URL 설정
+9. Supabase SQL Editor에서 마이그레이션 실행 (supabase/migrations/ 순서대로)
+10. 문제 시딩 (아래 프롬프트 참고)
+
+각 단계를 하나씩 자세히 안내해 주세요. 현재 어떤 단계에서 시작하면 되는지 물어봐 주세요.</textarea>
+    </div>
+  </div>
+
+  <!-- ===== 2. LOCAL ===== -->
+  <div class="prompt-section">
+    <div class="prompt-header">
+      <h3>2. 로컬 서버 (학교 컴퓨터)</h3>
+      <span class="badge badge-local">로컬</span>
+    </div>
+    <div class="copy-area">
+      <button class="copy-btn" onclick="copyPrompt(this)">복사</button>
+      <textarea class="prompt-text" readonly rows="30">pythink2라는 교육용 웹 앱을 학교 컴퓨터에서 로컬로 실행하려고 합니다. 단계별로 안내해 주세요.
+
+## 프로젝트 정보
+- GitHub 저장소: https://github.com/greatsong/pythink2
+- 프론트엔드: React 19 + Vite → localhost:4003
+- AI 서버: Express.js → localhost:4004
+- 데이터베이스: Supabase (외부 클라우드 서비스, 인터넷 필요)
+- AI: Anthropic Claude API (인터넷 필요)
+
+## 사전 요구사항
+- Node.js 20 LTS 이상
+- Git
+- 인터넷 연결 (Supabase + Claude API 사용)
+
+## 설치 순서
+1. git clone https://github.com/greatsong/pythink2.git
+2. cd pythink2/client && npm install
+3. cd ../server && npm install
+
+## 환경 변수 파일 생성
+
+### client/.env
+VITE_SUPABASE_URL=https://여기에-supabase-url.supabase.co
+VITE_SUPABASE_ANON_KEY=여기에-supabase-anon-key
+VITE_DEMO_PASSWORD=demo-pythink2-2026
+VITE_DEMO_ACCESS_CODE=1234
+
+### server/.env
+PORT=4004
+CLIENT_URL=http://localhost:4003
+SUPABASE_URL=https://여기에-supabase-url.supabase.co
+SUPABASE_ANON_KEY=여기에-supabase-anon-key
+SUPABASE_SERVICE_ROLE_KEY=여기에-service-role-key
+ANTHROPIC_API_KEY=sk-ant-여기에-api-key
+ADMIN_API_KEY=my-school-admin-secret-key-2026
+API_KEY_ENCRYPTION_SECRET=여기에-64자리-hex
+DEMO_PASSWORD=demo-pythink2-2026
+
+## 실행
+- 터미널 1: cd client && npm run dev (포트 4003)
+- 터미널 2: cd server && npm run dev (포트 4004)
+
+## 다른 기기에서 접속 (같은 Wi-Fi)
+- 서버 PC IP 확인 후 http://IP주소:4003으로 접속
+- server/.env의 CLIENT_URL에 해당 IP 추가: CLIENT_URL=http://localhost:4003,http://192.168.x.x:4003
+- 방화벽에서 4003, 4004 포트 열기
+
+## 필요한 외부 서비스
+1. Supabase 프로젝트 (무료) — 가입 후 프로젝트 생성, SQL Editor에서 마이그레이션 실행
+2. Anthropic API 키 — console.anthropic.com에서 발급
+
+각 단계를 하나씩 안내해 주세요. 현재 어떤 단계에서 시작하면 되는지 물어봐 주세요.</textarea>
+    </div>
+  </div>
+
+  <!-- ===== 3. SEED ===== -->
+  <div class="prompt-section">
+    <div class="prompt-header">
+      <h3>3. 문제 시딩 & 교실 설정</h3>
+      <span class="badge badge-common">공통</span>
+    </div>
+    <div class="copy-area">
+      <button class="copy-btn" onclick="copyPrompt(this)">복사</button>
+      <textarea class="prompt-text" readonly rows="24">pythink2 배포를 완료했습니다. 이제 초기 데이터를 넣고 교실을 설정하려고 합니다. 안내해 주세요.
+
+## 현재 상태
+- 프론트엔드, AI 서버, Supabase가 모두 연결된 상태
+- DB 테이블은 마이그레이션으로 생성 완료
+
+## 해야 할 것들
+
+### 1. 문제 시딩 (로컬 터미널에서 실행)
+- server/.env에 SUPABASE_URL과 SUPABASE_SERVICE_ROLE_KEY가 설정된 상태여야 함
+- 실행 순서:
+  node scripts/seed-roadmap-problems.js    (로드맵 문제 23개)
+  node scripts/seed-all.js                  (전체 문제 165개, 5개 컬렉션)
+- 확인: Supabase Table Editor > problems 테이블에 165행 이상
+
+### 2. 첫 교사 계정 만들기
+- 사이트에서 회원가입 (이메일 + 비밀번호)
+- Supabase > Table Editor > users 테이블에서 role을 'teacher'로 변경
+- 또는 SQL: UPDATE users SET role = 'teacher' WHERE email = '내이메일';
+
+### 3. 교실 만들기
+- 교사로 로그인 → 교실 만들기 → 이름 입력 → 참여 코드 확인
+- 학생에게 참여 코드 공유
+
+### 4. 데모 모드 (선택)
+- node scripts/seed-demo.js (데모 교실 + 34명 학생 생성)
+- /demo 경로로 접속, 코드 1234 입력, 역할 선택
+
+각 단계를 순서대로 안내해 주세요.</textarea>
+    </div>
+  </div>
+
+  <!-- ===== 4. TROUBLESHOOT ===== -->
+  <div class="prompt-section">
+    <div class="prompt-header">
+      <h3>4. 문제 해결 (에러 발생 시)</h3>
+      <span class="badge badge-common">공통</span>
+    </div>
+    <div class="copy-area">
+      <button class="copy-btn" onclick="copyPrompt(this)">복사</button>
+      <textarea class="prompt-text" readonly rows="24">pythink2라는 교육용 웹 앱을 배포/실행하는 중에 문제가 생겼습니다. 도와주세요.
+
+## 프로젝트 정보
+- GitHub: https://github.com/greatsong/pythink2
+- 프론트엔드: React 19 + Vite (Vercel 또는 localhost:4003)
+- AI 서버: Express.js (Railway 또는 localhost:4004)
+- DB: Supabase (PostgreSQL)
+- AI: Anthropic Claude API
+
+## 자주 발생하는 문제와 해결법
+
+1. 빈 화면 → VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY 확인
+2. CORS 에러 → Railway의 CLIENT_URL이 Vercel URL과 일치하는지 확인
+3. AI 코치 무응답 → ANTHROPIC_API_KEY 확인, 서버URL/api/health 확인
+4. 회원가입 안됨 → Supabase Authentication > Email 활성 + Site URL 확인
+5. 문제 목록 비어있음 → seed-all.js 실행했는지 확인
+6. Rate limit → 학생당 분당 20회, 동시 3건 제한
+7. 로컬 접속 안됨 → 방화벽 4003/4004 포트, CLIENT_URL에 IP 추가
+
+## 내 현재 에러 상황
+(여기에 에러 메시지, 스크린샷, 브라우저 Console 로그 등을 붙여넣으세요)
+
+위 정보를 바탕으로 원인을 분석하고 해결 방법을 단계별로 알려주세요.</textarea>
+    </div>
+  </div>
+
+  <div class="back-link">
+    <a href="index.html">&larr; 전체 배포 가이드로 돌아가기</a>
+  </div>
+</div>
+
+<div class="footer">
+  <p>pythink2 &mdash; 컴퓨팅 사고력을 키우는 적응형 코딩 학습 플랫폼</p>
+</div>
+
+<script>
+function copyPrompt(btn) {
+  const textarea = btn.parentElement.querySelector('.prompt-text');
+  navigator.clipboard.writeText(textarea.value).then(() => {
+    btn.textContent = '복사 완료!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '복사';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
